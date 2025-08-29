@@ -52,7 +52,7 @@ class dP extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setColor(Color.BLACK);
         g2d.fillRect(0, 0, getWidth(), getHeight());
-        mesh LFYS = sp.LFYS(0, 0, 10, 0, 0);
+        mesh LFYS = sp.LFYS(0, 0, 10, 0);
         drawMesh(LFYS, g2d, texture1);
         
 
@@ -198,22 +198,23 @@ class spawner {
         return new tester(x, y, z).m;
     }
 
-    public mesh LFYS(double x, double y, double z, int aI, double rotation) {
-        double c = Math.cos(rotation), s = Math.sin(rotation);
-        return new mesh(new tri[][] {
+    public mesh LFYS(double x, double y, double z, int aI) {
+        
+        GameObject LFYS = new GameObject(new mesh(new tri[][] {
             {
                                 new tri(
-                    new vec3((x * c - y * s) + 10, (x * s + y * c) + 5, z - 1, 0.75, 0.75),
-                    new vec3((x * c - y * s) + 10, (x * s + y * c) - 5, z - 1, 0, 0.75),
-                    new vec3((x * c - y * s) - 10, (x * s + y * c) + 5, z - 1, 0, 0.75)
+                    new vec3(x + 10, y + 5, z - 1, 0.75, 0.75),
+                    new vec3(x + 10, y - 5, z - 1, 0, 0.75),
+                    new vec3(x - 10, y + 5, z - 1, 0, 0.75)
                 ),
                 new tri(
-                    new vec3((x * c - y * s) - 10, (x * s + y * c) + 5, z - 1, 0, 0.75),
-                    new vec3((x * c - y * s) - 10, (x * s + y * c) - 5, z - 1, 0, 0),
-                    new vec3((x * c - y * s) + 10, (x * s + y * c) + 5, z - 1, 0.75, 0.75)
+                    new vec3(x - 10, y + 5, z - 1, 0, 0.75),
+                    new vec3(x - 10, y - 5, z - 1, 0, 0),
+                    new vec3(x + 10, y + 5, z - 1, 0.75, 0.75)
                 )
             }
-        });
+        }),new AABB(new vec3(0,0,0),new vec3(0,0,0));
+        return LFYS.getMesh(aI);
     }
 }
 class AABB {
